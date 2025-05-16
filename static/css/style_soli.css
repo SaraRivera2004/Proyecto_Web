@@ -1,0 +1,266 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+}
+
+.logo-bar {
+    background-color: white;
+    padding: 10px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.logo-bar a {
+    display: inline-block;
+}
+
+.logo-bar img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 20px;
+    background-color: dodgerblue;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #fff;
+    color: dodgerblue;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.perfil-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.perfil-info {
+    flex: 1;
+    max-width: 500px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.perfil-info h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.perfil-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.handle {
+    color: #666;
+    font-style: italic;
+}
+
+.perfil-imagen {
+    flex: 1;
+    text-align: right;
+}
+
+.perfil-imagen img {
+    max-width: 400px;
+    height: auto;
+    border: 5px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Estilos para el contenedor de los botones de solicitud */
+.botones-solicitud {
+    text-align: center; 
+    margin-top: 30px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-wrap: wrap; 
+}
+
+/* Estilos para los botones (aplicando el estilo btn-solicitud a ambos) */
+.botones-solicitud button,
+.botones-solicitud a {
+    background-color: #1e90ff; 
+    color: white; 
+    padding: 12px 24px; 
+    font-size: 18px; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    text-decoration: none; 
+    margin: 10px; 
+    display: inline-flex; 
+    font-family: 'Cormorant Garamond', serif; 
+    width: 150px; 
+    height: 50px;  
+    text-align: center; 
+    box-sizing: border-box; 
+    align-items: center;    
+    justify-content: center;
+}
+
+.botones-solicitud button:hover,
+.botones-solicitud a:hover {
+    background-color: #0c73d8; 
+}
+
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Contenido del formulario */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 60%;
+    max-width: 700px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Botón de envío */
+.btn-enviar {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background-color: #218838;
+}
+
+/* Botón de cierre (X) */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #000000;
+    padding: 20px 0;
+}
+
+footer p {
+    margin-top: 5px;
+    text-shadow: #332f2f;
+    justify-content: center;
+}
+
+footer .social-icons {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+footer .social-icons a {
+    color: #3425ff;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    border-radius: 4px;
+    background-color: #ffffff;
+    text-decoration: underline;
+    transform: scale(1.2);
+}
+
+.social-icon i {
+    margin-right: 5px
+}
+

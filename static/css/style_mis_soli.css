@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center; /* Centrar el título */
+    margin-bottom: 20px;
+}
+
+p, a, li {
+    font-weight: 400;
+    font-size: 1.1em;
+}
+
+/* Navegación */
+nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+}
+
+.logo-bar {
+    background-color: white;
+    padding: 10px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.logo-bar a {
+    display: inline-block;
+}
+
+.logo-bar img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 20px;
+    background-color: dodgerblue;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #fff;
+    color: dodgerblue;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+/* Contenedor principal para la tabla */
+.container {
+    max-width: 80%; 
+    margin: 50px auto; 
+    padding: 20px;
+    background-color: #f9f9f9; 
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Estilos para la tabla */
+.container table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ddd; 
+}
+
+.container th, .container td {
+    padding: 12px 15px;
+    text-align: center; 
+    border-bottom: 1px solid #ddd; 
+    border-right: 1px solid #ddd; 
+}
+
+.container th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center; /
+}
+
+/* Elimina el borde derecho de la última columna */
+.container th:last-child,
+.container td:last-child {
+    border-right: none;
+}
+
+.container tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.container tbody tr:hover {
+    background-color: #e0f7fa;
+    transition: background-color 0.3s ease;
+}
+
+.container tbody td {
+    text-align: center; 
+}
+
+.container tbody tr td[colspan="5"] {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #000000;
+    padding: 20px 0;
+}
+
+footer p {
+    margin-top: 5px;
+    text-shadow: #332f2f;
+    justify-content: center;
+}
+
+footer .social-icons {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+footer .social-icons a {
+    color: #3425ff;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    border-radius: 4px;
+    background-color: #ffffff;
+    text-decoration: underline;
+    transform: scale(1.2);
+}
+
+.social-icon i {
+    margin-right: 5px;
+}

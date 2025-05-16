@@ -1,0 +1,96 @@
+{% load static %}
+<head>
+    <title>Indemnidata - Mis solicitudes</title>
+    <link rel="icon" href="{% static 'css/img/icono.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style_mis_soli.css' %}">
+    <style>
+        nav ul li a {
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        p, a, li {
+            font-weight: 400;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+
+<body>
+    {% block content %}
+    <header>
+        <nav>
+            <div class="logo-bar">
+                <a href="{% url 'pag_principal' %}">
+                    <img src="{% static 'css/img/indemnidata.png' %}" alt="Logo de la Aplicación" style="width: 250px; height: auto; margin-bottom: -70px; margin-top: -70px;">
+                </a>
+            </div>
+            <div class="menu-bar">
+                <ul>
+                    <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="{% url 'mapas' %}"><i class="fas fa-map-marker-alt"></i> Mapas</a></li>
+                    <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a></li>
+                    <li><a href="{% url 'registro' %}"><i class="fas fa-file-alt"></i> Registro</a></li>
+                    <li><a href="{% url 'nosotros' %}"><i class="fas fa-users"></i> Nosotros</a></li>
+                    <li><a href="https://wa.me/573224286756" target="_blank"><i class="fas fa-phone"></i> Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Mis Solicitudes</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Abogado Asignado</th>
+                    <th>Teléfono Abogado</th>
+                    <th>Correo Abogado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solicitud in solicitudes %}
+                    <tr>
+                        <td>{{ solicitud.descripcion|truncatechars:50 }}</td>
+                        <td>{{ solicitud.estado }}</td>
+                        <td>{{ solicitud.abogado.nombre|default:"-" }}</td>
+                        <td>{{ solicitud.abogado.telefono|default:"" }}</td>
+                        <td>{{ solicitud.abogado.correo|default:"" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; font-style: italic; color: #777;">No tienes ninguna solicitud.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <p class="footer-title">Síguenos en nuestras redes sociales</p>
+
+            <div class="social-icons">
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+                <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+            </div>
+
+            <p class="footer-rights">Fundación Universitaria San Mateo / Sara Rivera / Felpie Pinilla / Ronald Perez</p>
+            <p class="footer-rights">© 2025 - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    {% endblock %}
+</body>
+</html>

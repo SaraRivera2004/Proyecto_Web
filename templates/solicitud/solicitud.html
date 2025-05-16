@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="es">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indemnidata - Solicitudes</title>
+    <link rel="icon" href="{% static 'css/img/icono.ico' %}">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style_soli.css' %}">
+    <style>
+        body, html {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        nav, nav * {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: inherit !important;
+        }
+        nav i, .menu-bar i {
+            font-family: 'Font Awesome 6 Free' !important;
+            font-style: normal;
+            font-weight: 900 !important;
+            font-display: block;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo-bar">
+            <a href="{% url 'pag_principal' %}">
+                <img src="{% static 'css/img/indemnidata.png' %}" alt="Logo de la Aplicación" style="width: 250px; height: auto; margin-bottom: -70px; margin-top: -70px;">
+            </a>
+        </div>
+        <div class="menu-bar">
+            <ul>
+                <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="{% url 'mapas' %}"><i class="fas fa-map-marker-alt"></i> Mapas</a></li>
+                {% if not request.session.rol == 'Victima' %}
+                <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a></li>
+                <li><a href="{% url 'registro' %}"><i class="fas fa-file-alt"></i> Registro</a></li>
+                <li><a href="https://wa.me/573224286756" target="_blank"><i class="fas fa-phone"></i> Contacto</a></li>
+                {% endif %}
+                <li><a href="{% url 'nosotros' %}"><i class="fas fa-users"></i> Nosotros</a></li>
+                {% if request.session.rol == 'Victima' %}
+                <li><a href="{% url 'solicitud' %}"><i class="fas fa-file-signature"></i> Nueva Solicitud</a></li>
+                <li><a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="botones-solicitud">
+    <button id="openModal" class="btn-solicitud">Crear solicitud</button>
+    <a href="{% url 'mis_solicitudes' %}" class="btn-solicitud">Mis solicitudes</a>
+</div>
+
+<div id="modalSolicitud" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Crear nueva solicitud</h2>
+        <form method="POST" enctype="multipart/form-data" id="solicitudForm"> {# Added id for the script #}
+            {% csrf_token %}
+            <label for="descripcion">Relate los hechos:</label>
+            <textarea name="descripcion" id="descripcion" required></textarea>
+
+            <label for="tiempo">¿Hace cuanto se encuentra restituid@?:</label>
+            <textarea name="tiempo" id="tiempo" required></textarea>
+
+            <label for="lugar">Lugar donde sucedió:</label>
+            <input type="text" name="lugar" id="lugar" required>
+
+            <label for="documento">Foto del documento de identidad:</label>
+            <p style="color: #b00; font-size: 0.95em;">Tamaño máximo permitido: 4 MB (solo imágenes)</p>
+            <input type="file" name="documento" id="documento" accept="image/*" required>
+
+            <label for="soporte">Escrituras o soporte de propiedad terreno (PDF):</label>       
+            <p style="color: #b00; font-size: 0.95em;">Tamaño máximo permitido: 5 MB (solo PDF)</p>
+            <input type="file" name="soporte" id="soporte" accept="application/pdf" required>
+
+            <script>
+            // Message when selecting a file
+            document.getElementById('documento').addEventListener('change', function() {
+                var doc = this.files[0];
+                if (doc && doc.size > 4 * 1024 * 1024) {
+                    alert('The photo of the document must not exceed 4 MB.');
+                    this.value = '';
+                }
+            });
+            document.getElementById('soporte').addEventListener('change', function() {
+                var sop = this.files[0];
+                if (sop && sop.size > 5 * 1024 * 1024) {
+                    alert('The support file must not exceed 5 MB.');
+                    this.value = '';
+                }
+            });
+
+            // Final validation on submit
+            // Ensure the form has id="solicitudForm"
+            var form = document.getElementById('solicitudForm');
+            if (form) {
+                form.onsubmit = function(e) {
+                    var doc = document.getElementById('documento').files[0];
+                    var sop = document.getElementById('soporte').files[0];
+                    if (doc && doc.size > 4 * 1024 * 1024) {
+                        alert('The photo of the document must not exceed 4 MB.');
+                        e.preventDefault();
+                        return false;
+                    }
+                    if (sop && sop.size > 5 * 1024 * 1024) {
+                        alert('The support file must not exceed 5 MB.');
+                        e.preventDefault();
+                        return false;
+                    }
+                };
+            }
+            </script>
+
+            <button type="submit" class="btn-enviar">Enviar solicitud</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <p class="footer-title">Síguenos en nuestras redes sociales</p> 
+
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+        </div>
+
+        <p class="footer-rights">Fundación Universitaria San Mateo / Sara Rivera / Felpie Pinilla / Ronald Perez</p>
+        <p class="footer-rights">© 2025 - Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<script>
+    var modal = document.getElementById("modalSolicitud");
+    var btn = document.getElementById("openModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    if(btn) { // Check if button exists
+        btn.onclick = function() {
+            if(modal) modal.style.display = "block";
+        }
+    }
+
+    if(span) { // Check if span exists
+        span.onclick = function() {
+            if(modal) modal.style.display = "none";
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            if(modal) modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

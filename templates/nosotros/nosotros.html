@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="es">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indemnidata - Nosotros</title>
+    <link rel="icon" href="{% static 'css/img/icono.ico' %}">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style_ini.css' %}">
+    <style>
+        body, html {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        nav ul li a {   
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        p, a, li { /* This was part of the page_specific_styles, keeping it */
+            font-weight: 400;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo-bar">
+            <a href="{% url 'pag_principal' %}">
+                <img src="{% static 'css/img/indemnidata.png' %}" alt="Logo de la Aplicación" style="width: 250px; height: auto; margin-bottom: -70px; margin-top: -70px;"> 
+            </a>
+        </div>
+        <div class="menu-bar">
+            <ul>
+                <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="{% url 'mapas' %}"><i class="fas fa-map-marker-alt"></i> Mapas</a></li>
+                {% if not request.session.rol == 'Victima' %}
+                <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a></li>
+                <li><a href="{% url 'registro' %}"><i class="fas fa-file-alt"></i> Registro</a></li>
+                {% endif %}
+                <li><a href="{% url 'nosotros' %}"><i class="fas fa-users"></i> Nosotros</a></li>
+                <li><a href="https://wa.me/573224286756" target="_blank"><i class="fas fa-phone"></i> Contacto</a></li>
+                {% if request.session.rol == 'Victima' %}
+                <li><a href="{% url 'solicitud' %}"><i class="fas fa-file-signature"></i> Nueva Solicitud</a></li>
+                <li><a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<section class="perfil-container home-layout">
+    <div class="perfil-info">
+        <div style="text-align: center;">
+            <h1>¿Quienes somos?</h1>
+            <p>
+                Somos un aplicativo web desarrollado con tecnologías HTML, CSS, Django y SQL Server, creado como parte de un proyecto académico orientado a la restitución y reparación de tierras. Este desarrollo integra conocimientos de asignaturas clave como Gestión de Bases de Datos, Estructura de Datos, Seguridad de Aplicaciones y Programación Web.
+                El sistema fue diseñado y elaborado por Felipe Pinilla, Sara Rivera y Ronald Pérez, con el objetivo de ofrecer una herramienta digital que sirva tanto para la investigación básica como para la gestión de solicitudes reales relacionadas con la restitución de tierras.
+                El aplicativo permite a cualquier usuario acceder a información investigativa sin necesidad de registrarse. Sin embargo, si un usuario cuenta con un registro válido en la base de datos (Es decir, si es una víctima del conflicto), puede generar una solicitud. Dicha solicitud será evaluada por un administrador, quien validará su veracidad y completitud. Si todo está en orden, se convierte en un caso activo y se asigna a un abogado, quien procederá a iniciar el proceso legal correspondiente.
+                Este sistema busca ser un canal de apoyo real para las víctimas, al mismo tiempo que ofrece una plataforma informativa para el resto de los usuarios.
+            </p>
+            <p class="handle">Fundación Universitaria San Mateo</p>
+            <p class="handle">Indemnidata</p>
+        </div>
+    </div>
+    <div class="perfil-imagen card-container">
+        <div class="card">
+            <div class="card-front">
+                <img src="{% static 'css/img/Nosotros.jpg' %}" alt="Indemnidata">
+            </div>
+            <div class="card-back">
+                <p>
+                    "La paz no se implora, se construye con justicia y verdad."
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <p class="footer-title">Síguenos en nuestras redes sociales</p>
+        
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank">
+                <i class="fab fa-x-twitter"></i> X
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+        </div>
+
+        <p class="footer-rights">Fundación Universitaria San Mateo / Sara Rivera / Felpie Pinilla / Ronald Perez</p>
+        <p class="footer-rights">© 2025 - Todos los derechos reservados</p>
+    </div>
+</footer>
+</body>
+</html>

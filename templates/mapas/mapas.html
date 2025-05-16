@@ -1,0 +1,189 @@
+{% load static %}
+<head>
+    <title>Indemnidata - Mapas</title>
+    <link rel="icon" href="{% static 'css/img/icono.ico' %}">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style_ini.css' %}">
+    <style>
+        body, html {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        nav ul li a {
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        p, a, li {
+            font-weight: 400;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+
+<body>
+{% block content %}
+<header>
+    <nav>
+        <div class="logo-bar">
+            <a href="{% url 'pag_principal' %}">
+                <img src="{% static 'css/img/indemnidata.png' %}" alt="Logo de la Aplicación" style="width: 250px; height: auto; margin-bottom: -70px; margin-top: -70px;"> 
+            </a>
+        </div>
+        <div class="menu-bar">
+            <ul>
+                <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="{% url 'mapas' %}"><i class="fas fa-map-marker-alt"></i> Mapas</a></li>
+                {% if not request.session.rol == 'Victima' %}
+                <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a></li>
+                <li><a href="{% url 'registro' %}"><i class="fas fa-file-alt"></i> Registro</a></li>
+                {% endif %}
+                <li><a href="{% url 'nosotros' %}"><i class="fas fa-users"></i> Nosotros</a></li>
+                <li><a href="https://wa.me/573224286756" target="_blank"><i class="fas fa-phone"></i> Contacto</a></li>
+                {% if request.session.rol == 'Victima' %}
+                <li><a href="{% url 'solicitud' %}"><i class="fas fa-file-signature"></i> Nueva Solicitud</a></li>
+                <li><a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+<div style="text-align: center; margin-bottom: 10; margin-top: 20;">
+    <h1>Mapas de regiones más afectadas</h1>
+</div>
+<div style="max-width: 900px; margin: 30px auto 20px auto; padding: 20px; background: #ffffff; border-radius: 12px;">
+    <p style="text-align: justify; margin-bottom: 18px;">
+        <strong>Contexto sobre la Restitución de Tierras en Colombia</strong><br>
+        El proceso de restitución de tierras en Colombia responde a las graves afectaciones causadas por el conflicto armado, el despojo y el desplazamiento forzado, especialmente en ciertas regiones del país que han sido históricamente más vulnerables.
+        <br><br>
+        Los departamentos de Antioquia, Cesar, Norte de Santander, Bolívar y Nariño han sido identificados como zonas críticas dentro de este proceso. Estos territorios comparten características comunes como una alta presencia de actores armados ilegales, disputas por el control territorial y una débil institucionalidad en el pasado, lo que facilitó el despojo de tierras a campesinos, comunidades afrodescendientes e indígenas.
+        <br><br>
+        Además, en estas regiones el conflicto tuvo una intensidad particular, generando crisis humanitarias prolongadas y desplazamientos masivos. La combinación de factores económicos, estratégicos y geográficos convirtió a estos departamentos en puntos clave dentro de las dinámicas del conflicto, y por ende, en áreas prioritarias para la implementación de medidas de justicia y reparación.
+    </p>
+    <p style="text-align: justify; color: #b00; font-weight: 500;">
+        <i class="fas fa-info-circle"></i>
+        Para conocer las estadísticas específicas de cada departamento, coloque el cursor sobre la imagen correspondiente.
+    </p>
+</div>
+
+<section class="perfil-container">
+    <div class="perfil-imagen card-container">
+        <div class="card">
+            <div style="text-align:center; margin-bottom: 8px; font-weight: bold; font-size: 1.15em; background: #f5f5f5; border-radius: 8px 8px 0 0; padding: 8px 0;">Antioquia</div>
+            <div class="card-front">
+                <img src="{% static 'css/img/Antioquia.png' %}" alt="Imagen de restitución">
+            </div>
+            <div class="card-back">
+                <h3 id="titulo_carta">Antioquia</h3>
+                <p> 
+                    Este departamento, con 9.308 víctimas (20% del total), ha sido fuertemente afectado por el conflicto y el desplazamiento forzado, lo que ha llevado a un gran número de solicitudes de restitución de tierras. 
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="perfil-imagen card-container">
+        <div class="card">
+            <div style="text-align:center; margin-bottom: 8px; font-weight: bold; font-size: 1.15em; background: #f5f5f5; border-radius: 8px 8px 0 0; padding: 8px 0;">Bolívar</div>
+            <div class="card-front">
+                <img src="{% static 'css/img/Bolívar.png' %}" alt="Imagen de restitución">
+            </div>
+            <div class="card-back">
+                <h3 id="titulo_carta">Bolívar</h3>
+                <p>
+                Este departamento, con 2.611 víctimas (6% del total), ha sido escenario de diversos conflictos y despojos de tierras, lo que ha generado un alto número de solicitudes de restitución.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="perfil-imagen card-container">
+        <div class="card">
+            <div style="text-align:center; margin-bottom: 8px; font-weight: bold; font-size: 1.15em; background: #f5f5f5; border-radius: 8px 8px 0 0; padding: 8px 0;">Cesar</div>
+            <div class="card-front">
+                <img src="{% static 'css/img/Cesar.png' %}" alt="Imagen de restitución">
+            </div>
+            <div class="card-back">
+                <h3 id="titulo_carta">Cesar</h3>
+                <p>
+                Este departamento, con 3.353 víctimas (7% del total), ha sido un escenario de fuertes enfrentamientos y desplazamientos, lo que ha generado un gran número de víctimas y necesidades de restitución.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="perfil-imagen card-container">
+        <div class="card">
+            <div style="text-align:center; margin-bottom: 8px; font-weight: bold; font-size: 1.15em; background: #f5f5f5; border-radius: 8px 8px 0 0; padding: 8px 0;">Norte de Santander</div>
+            <div class="card-front">
+                <img src="{% static 'css/img/Norte_de_Santander.png' %}" alt="Imagen de restitución">
+            </div>
+            <div class="card-back">
+                <h3 id="titulo_carta">Norte de Santander</h3>
+                <p>
+                Este departamento, con 2.949 víctimas (6% del total), ha sido afectado por el conflicto armado y ha experimentado un importante número de despojos de tierras, lo que ha llevado a la necesidad de implementar la restitución.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="perfil-imagen card-container">
+        <div class="card">
+            <div style="text-align:center; margin-bottom: 8px; font-weight: bold; font-size: 1.15em; background: #f5f5f5; border-radius: 8px 8px 0 0; padding: 8px 0;">Nariño</div>
+            <div class="card-front">
+                <img src="{% static 'css/img/Nariño.png' %}" alt="Imagen de restitución">
+            </div>
+            <div class="card-back">
+                <h3 id="titulo_carta">Nariño</h3>
+                <p>
+                Este departamento, con 2.513 víctimas (5% del total), ha sido afectado por el conflicto armado y ha experimentado un importante número de despojos de tierras, lo que ha llevado a la necesidad de implementar la restitución.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gov-links-section">
+    <div class="gov-link-card">
+        <span class="gov-link-icon"><i class="fas fa-globe"></i></span>
+        <a href="https://www.gov.co/" target="_blank">Portal GOV.CO</a>
+        <div class="gov-link-desc">Acceso al portal único del Estado colombiano para trámites y servicios.</div>
+    </div>
+    <div class="gov-link-card">
+        <span class="gov-link-icon"><i class="fas fa-network-wired"></i></span>
+        <a href="https://gobiernodigital.mintic.gov.co/portal/" target="_blank">Gobierno Digital MinTIC</a>
+        <div class="gov-link-desc">Transformación digital y servicios TIC para ciudadanos y entidades.</div>
+    </div>
+    <div class="gov-link-card">
+        <span class="gov-link-icon"><i class="fas fa-landmark"></i></span>
+        <a href="https://www.urt.gov.co/" target="_blank">Unidad de Restitución de Tierras</a>
+        <div class="gov-link-desc">Información y trámites sobre restitución de tierras en Colombia.</div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <p class="footer-title">Síguenos en nuestras redes sociales</p>
+        
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank">
+                <i class="fab fa-x-twitter"></i> X
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+        </div>
+
+        <p class="footer-rights">Fundación Universitaria San Mateo / Sara Rivera / Felpie Pinilla / Ronald Perez</p>
+        <p class="footer-rights">© 2025 - Todos los derechos reservados</p>
+    </div>
+</footer>
+{% endblock %}
+</body>
+</html>

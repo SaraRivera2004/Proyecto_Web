@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Indemnidata - Registro de Datos de la Víctima{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 0;">
+    <img src="{% static 'css/img/indemnidata.png' %}" alt="logo" style="width: 250px; height: auto; margin-bottom: -70px; margin-top: -70px;"> 
+</div>
+
+<form action="{% url 'datos_victima' %}" method="post" onsubmit="return validateForm()">
+    {% csrf_token %}
+    
+    <p><label>Fecha de Nacimiento:</label><input type="date" name="fe_naci" required></p>
+
+    <p><label>Departamento de Nacimiento:</label>
+        <select name="id_depar_naci" required>
+            {% for dep in departamentos %}
+                <option value="{{ dep.id_dep }}">{{ dep.nombre }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p><label>Departamento de Residencia:</label>
+        <select name="id_depar_resi" required>
+            {% for dep in departamentos %}
+                <option value="{{ dep.id_dep }}">{{ dep.nombre }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p><label>Grupo Étnico:</label>
+        <select name="id_gp_etni" required>
+            {% for etnia in etnias %}
+                <option value="{{ etnia.id_gp_etni }}">{{ etnia.nombre }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p><label>Tipo de Ayuda:</label>
+        <select name="id_tip_ayu" required>
+            {% for ayuda in tipos_ayuda %}
+                <option value="{{ ayuda.id_tip_ayu }}">{{ ayuda.nombre }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p><label>Género:</label>
+        <select name="id_gen" required>
+            {% for gen in generos %}
+                <option value="{{ gen.id_gen }}">{{ gen.nombre }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p><label>Usuario del Sistema:</label>
+        <select name="id_usu_sist" required>
+            {% for usuario in usuarios %}
+                <option value="{{ usuario.id_usu_sist }}">{{ usuario.p_nom }} {{ usuario.s_nom }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+    <p><button type="submit">Registrar</button></p>
+</form>
+{% endblock %}
+
+{% block footer %}
+<footer>
+    <!-- Contenido del pie de página -->
+</footer>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="es">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indemnidata - Inicio</title>
+    <link rel="icon" href="{% static 'css/img/icono.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style_ini.css' %}">
+    <style>
+        body, html {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        nav ul li a {   
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        p, a, li {
+            font-weight: 400;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo-bar">
+            <a href="{% url 'pag_principal' %}">
+                <img src="{% static 'css/img/indemnidata.png' %}" alt="Logo de la Aplicación" style="width: 250px; height: auto; margin-bottom: -70px; margin-top: -70px;"> 
+            </a>
+        </div>
+        <div class="menu-bar">
+            <ul>
+                {% if request.session.usuario_id %}
+                <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                {% if request.session.rol == 'Victima' %}
+                <li><a href="{% url 'mapas' %}"><i class="fas fa-map-marker-alt"></i> Mapas</a></li>
+                {% endif %}
+                <li><a href="{% url 'nosotros' %}"><i class="fas fa-users"></i> Nosotros</a></li>
+                <li><a href="https://wa.me/573224286756" target="_blank"><i class="fas fa-phone"></i> Contacto</a></li>
+                {% endif %}
+
+                {% if request.session.rol == 'Admin' %}
+                <li><a href="{% url 'administrador' %}"><i class="fas fa-users"></i> Gestionar usuarios</a></li>
+                {% endif %}
+
+                {% if request.session.rol == 'Victima' %}
+                <li><a href="{% url 'solicitud' %}"><i class="fas fa-file-signature"></i> Nueva Solicitud</a></li>
+                <li><a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+                {% endif %}
+
+                {% if request.session.usuario_id == null %}
+                <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a></li>
+                <li><a href="{% url 'registro' %}"><i class="fas fa-file-alt"></i> Registro</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<section class="perfil-container home-layout">
+    <div class="perfil-info">
+        <div style="text-align: center;">
+            <h1>Víctimas en foco, restitución y reparación en Colombia</h1>
+            <p>La restitución de tierras en Colombia comenzó oficialmente en 2011 con la Ley 1448, conocida como la Ley de Víctimas y Restitución de Tierras, durante el gobierno de Juan Manuel Santos. Esta ley busca devolver las tierras despojadas o abandonadas forzosamente a sus legítimos dueños, como parte de un proceso de reparación a las víctimas del conflicto armado.
+            A lo largo de los años, el proceso ha enfrentado desafíos como la resistencia de ocupantes ilegales y amenazas a los reclamantes. Sin embargo, ha logrado avances importantes, con la creación de la Unidad de Restitución de Tierras y una serie de sentencias judiciales que han favorecido a las víctimas.
+            El Acuerdo de Paz de 2016 con las FARC reafirmó la importancia de la restitución en la construcción de paz y la justicia rural. Hoy, el proceso continúa, con el gobierno comprometido en acelerar los trámites y asegurar la permanencia de las personas en sus tierras restituidas.
+            </p>
+        </div>
+    </div>
+    <div class="perfil-imagen card-container">
+        <div class="card">
+            <div class="card-front">
+                <img src="{% static 'css/img/restitucion.png' %}" alt="Imagen de restitución">
+            </div>
+            <div class="card-back">
+                <p>
+                En Colombia, de las víctimas que han solicitado restitución de tierras, aproximadamente 115,000 familias han sido reparadas con la restitución de alrededor de 1 millón de hectáreas.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="max-width:1200px; margin:40px auto 30px auto; display:flex; gap:40px; align-items:flex-start;">
+    <div style="flex:1; min-width:320px;">
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/gjCdyI_5sws" title="YouTube video" frameborder="0" allowfullscreen style="border-radius:12px;"></iframe>
+    </div>
+    <div style="flex:1; min-width:320px;">
+        <h3 style="text-align:center; margin-bottom:20px;">Preguntas Frecuentes (FAQ)</h3>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">¿Qué es Indemnidata?</button>
+                <div class="faq-answer">Indemnidata es una plataforma dedicada a la gestión y consulta de procesos de restitución y reparación de víctimas en Colombia.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">¿Cómo puedo registrarme en la plataforma?</button>
+                <div class="faq-answer">Para registrarte, haz clic en el botón "Registro" en la parte superior y completa el formulario con tus datos personales.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">¿Puedo consultar el estado de mi solicitud?</button>
+                <div class="faq-answer">Sí, puedes consultar el estado de tu solicitud ingresando a la sección "Mis solicitudes" después de iniciar sesión.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">¿Dónde puedo encontrar información de contacto?</button>
+                <div class="faq-answer">Puedes encontrar la información de contacto en la sección "Contacto" del menú principal.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gov-links-section">
+    <div class="gov-link-card">
+        <span class="gov-link-icon"><i class="fas fa-globe"></i></span>
+        <a href="https://www.gov.co/" target="_blank">Portal GOV.CO</a>
+        <div class="gov-link-desc">Acceso al portal único del Estado colombiano para trámites y servicios.</div>
+    </div>
+    <div class="gov-link-card">
+        <span class="gov-link-icon"><i class="fas fa-network-wired"></i></span>
+        <a href="https://gobiernodigital.mintic.gov.co/portal/" target="_blank">Gobierno Digital MinTIC</a>
+        <div class="gov-link-desc">Transformación digital y servicios TIC para ciudadanos y entidades.</div>
+    </div>
+    <div class="gov-link-card">
+        <span class="gov-link-icon"><i class="fas fa-landmark"></i></span>
+        <a href="https://www.urt.gov.co/" target="_blank">Unidad de Restitución de Tierras</a>
+        <div class="gov-link-desc">Información y trámites sobre restitución de tierras en Colombia.</div>
+    </div>
+</section>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var answer = this.nextElementSibling;
+            var isOpen = answer.style.display === 'block';
+            document.querySelectorAll('.faq-answer').forEach(function(a) { a.style.display = 'none'; });
+            if (!isOpen) answer.style.display = 'block';
+        });
+    });
+</script>
+
+<footer>
+    <div class="footer-container">
+        <p class="footer-title">Síguenos en nuestras redes sociales</p>
+        
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank">
+                <i class="fab fa-x-twitter"></i> X
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+        </div>
+
+        <p class="footer-rights">Fundación Universitaria San Mateo / Sara Rivera / Felpie Pinilla / Ronald Perez</p>
+        <p class="footer-rights">© 2025 - Todos los derechos reservados</p>
+    </div>
+</footer>
+</body>
+</html>

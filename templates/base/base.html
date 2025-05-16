@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="es">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Web Crud Django{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/style_base.css'%}">
+    <link rel="icon" href="{% static 'css/img/icono.ico' %}">
+    <style>
+        body, html {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        nav, nav * {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: inherit !important;
+        }
+        nav i, .menu-bar i {
+            font-family: 'Font Awesome 6 Free' !important;
+            font-style: normal;
+            font-weight: 900 !important;
+            font-display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <!-- Menú dinámico según el rol -->
+                {% if request.session.usuario_id %}
+                    {% if request.session.rol|lower == 'víctima' %}
+                        <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                        <li><a href="{% url 'mapas' %}"><i class="fas fa-map-marker-alt"></i> Mapas</a></li>
+                        <li><a href="https://wa.me/573224286756" target="_blank"><i class="fas fa-phone"></i> Contacto</a></li>
+                        <li><a href="{% url 'nosotros' %}"><i class="fas fa-users"></i> Nosotros</a></li>
+                        <li><a href="{% url 'solicitud' %}"><i class="fas fa-file-alt"></i> Solicitud</a></li>
+                        {# <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li> #}
+                    {% elif request.session.rol|lower == 'admin' %}
+                        <li><a href="{% url 'administrador' %}"><i class="fas fa-users"></i> Gestionar usuarios</a></li>
+                        <li><a href="{% url 'solicitud' %}"><i class="fas fa-file-alt"></i> Solicitud</a></li>
+                        {# <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li> #}
+                    {% elif request.session.rol|lower == 'abogado' %}
+                        <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                        <li><a href="{% url 'solicitud' %}"><i class="fas fa-file-alt"></i> Solicitud</a></li>
+                        {# <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li> #}
+                    {% endif %}
+                {% else %}
+                    <li><a href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a></li>
+                    <li><a href="{% url 'registro' %}"><i class="fas fa-file-alt"></i> Registro</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main id="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p class="footer-title">Síguenos en nuestras redes sociales</p>
+
+            <div class="social-icons">
+                <a href="https://twitter.com" target="_blank">
+                    <i class="fab fa-x-twitter"></i> X
+                </a>
+                <a href="https://www.instagram.com" target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.facebook.com" target="_blank">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+            </div>
+
+            <p class="footer-rights">Fundación Universitaria San Mateo / Sara Rivera / Felipe Pinilla / Ronald Perez</p>
+            <p class="footer-rights">© 2025 - Todos los derechos reservados</p>
+        </div>
+    </footer>
+</body>
+
+</html>

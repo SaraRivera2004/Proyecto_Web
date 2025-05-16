@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+nav {
+    display: flex;
+    flex-direction: column; 
+    width: 100%; 
+    background-color: transparent; 
+    padding: 0; 
+}
+
+.logo-bar {
+    background-color: white;
+    padding: 10px 20px; 
+    text-align: center; 
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.logo-bar a {
+    display: inline-block;
+}
+
+.logo-bar img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto; 
+}
+
+nav ul {
+    
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 20px;
+    background-color: dodgerblue; 
+    padding: 10px 20px; 
+    margin: 0; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+nav ul li a {
+    text-decoration: none;
+    color: black; 
+    font-weight: bold;
+    background-color: white; 
+    padding: 8px 15px;
+    border-radius: 15px; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #fff;
+    color: dodgerblue; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.2); 
+}
+
+
+.perfil-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px; 
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+
+.perfil-info {
+    flex: 1;
+    max-width: 500px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.perfil-info h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.perfil-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.handle {
+    color: #666;
+    font-style: italic;
+}
+
+.perfil-imagen {
+    flex: 1;
+    text-align: right;
+}
+
+.perfil-imagen img {
+    max-width: 400px;
+    height: auto;
+    border: 5px solid #ddd;
+    border-radius: 8px;
+}
+.card-container {
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.card {
+    width: 350px;
+    height: 350px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.5s ease;
+}
+
+.card:hover {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+}
+
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-back {
+    background-color: #ffffff;
+    color: #060606;
+    padding: 20px;
+    transform: rotateY(180deg);
+    font-size: 1.1em;
+    flex-direction: column;
+}
+ 
+#titulo_carta{
+    font-size: 30px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+
+/* Pie de página */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #000000;
+    padding: 20px 0;
+}
+
+footer p {
+    margin-top: 5px;
+    text-shadow: #332f2f;
+    justify-content: center;
+}
+
+footer .social-icons {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+footer .social-icons a {
+    color: #3425ff;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    border-radius: 4px;
+    background-color: #ffffff;
+    text-decoration: underline;
+    transform: scale(1.2);
+}
+
+.social-icon i {
+    margin-right: 5px;
+}
+
+.faq-section {
+    max-width: 900px;
+    margin: 40px auto 30px auto;
+}
+.faq-section h2, .faq-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.faq-container {
+    border: 1px solid #c3c3c3;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+}
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background: #f7fafd;
+    border: none;
+    padding: 16px;
+    font-size: 1.1em;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.2s;
+}
+.faq-question:hover {
+    background: #e6f0fa;
+}
+.faq-answer {
+    display: none;
+    padding: 16px;
+    background: #fff;
+    font-size: 1em;
+}
+
+.gov-links-section {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    padding: 24px 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+.gov-link-card {
+    background: #f7fafd;
+    border: 1px solid #c3c3c3;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 18px 24px;
+    text-align: center;
+    transition: box-shadow 0.3s, transform 0.3s;
+    min-width: 260px;
+    max-width: 320px;
+    min-height: 100px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.gov-link-card:hover {
+    box-shadow: 0 6px 24px rgba(30, 144, 255, 0.18);
+    transform: translateY(-4px) scale(1.03);
+}
+.gov-link-card a {
+    color: #1a4fa3;
+    font-size: 1.08em;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+}
+.gov-link-card a:hover {
+    color: #0a2c5e;
+    text-decoration: underline;
+}
+.gov-link-card .gov-link-desc {
+    font-size: 0.93em;
+    color: #444;
+    margin-top: 8px;
+}
+.gov-link-card .gov-link-icon {
+    font-size: 1.5em;
+    color: #1a4fa3;
+    margin-bottom: 6px;
+}

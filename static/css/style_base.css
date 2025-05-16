@@ -1,0 +1,205 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    background: linear-gradient(1deg, #ffffff, #ffffff);
+    padding-bottom: 100px; 
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(115deg, #00a3f5 10%, #00bfff 90%);
+    border-radius: 25px;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+}
+
+header nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #0080ff;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+/* CONTENEDOR PRINCIPAL DEL FORM */
+#container {
+    margin-top: 30px;
+    max-width: 500px;
+    background: linear-gradient(115deg, #ffffff  10%, #ffffff 90%);
+    padding: 25px 40px 20px 40px; 
+    border-radius: 17px;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    margin-bottom: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* FORMULARIO EN GRID */
+form {  
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px 15px;
+    padding: 20px;
+    max-width: 420px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.873);
+    background-color: transparent;
+    margin: auto;
+}
+
+/* Etiquetas */
+form label {    
+    text-align: right;
+    padding-top: 8px;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Campos de entrada */
+form input {
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+/* Botón de envío */
+form button[type="submit"] {
+    grid-column: span 2;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background-color: #2ea1ff;;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #00bbff;
+}
+
+/* Link debajo del botón */
+#link_reg {
+    text-align: center;
+    margin-top: 30px;
+}
+
+a#link_reg {
+    text-decoration: none;
+    color:  #00bfff;
+    font-weight: bold;
+    text-shadow: #444343;
+    text-align: center;
+    padding: 5px 10px;
+}
+
+a#link_reg:hover {
+    background-color: #079ffd;
+    color: #ffffff;
+    padding: 10px;
+}
+
+/* Pie de página */
+footer {
+    background-color: white;
+    color: #040404;
+    padding: 30px 20px;
+}
+
+.footer-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icons a {
+    color: #3425ff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #000;
+    transform: scale(1.2);
+}
+
+.footer-rights {
+    font-size: 0.95em;
+    color: #444;
+    margin-top: 10px;
+}
+
+

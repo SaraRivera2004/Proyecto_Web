@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="es">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indemnidata - Administrador</title>
+    <link rel="icon" href="{% static 'css/img/icono.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style_admin.css' %}">
+</head>
+<body>
+<nav class="custom-navbar">
+    <div class="logo">
+        <img src="{% static 'css/img/indemnidata.png' %}" alt="Logo">
+    </div>
+    <div class="nav-links">
+        <a class="nav-link" href="{% url 'pag_principal' %}"><i class="fas fa-home"></i> Inicio</a>
+        <a class="nav-link" href="{% url 'mapas' %}"><i class="fas fa-map-marker-alt"></i> Mapas</a>
+        <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-user"></i> Login</a>
+        <a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-file-alt"></i> Registro</a>
+        <a class="nav-link" href="{% url 'nosotros' %}"><i class="fas fa-users"></i> Nosotros</a>
+        <a class="nav-link" href="https://wa.me/573224286756" target="_blank"><i class="fas fa-phone"></i> Contacto</a>
+        <a class="nav-link logout-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+    </div>
+</nav>
+<div class="container">
+    <h1>Gestión de Usuarios</h1>
+    <div class="form-section">
+        <form method="POST" onsubmit="return validateForm();">
+            {% csrf_token %}
+            <input type="hidden" name="id_usu_sist" id="id_usu_sist">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="p_nom" class="form-label">Primer Nombre:</label>
+                    <input type="text" class="form-control" name="p_nom" id="p_nom" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="s_nom" class="form-label">Segundo Nombre:</label>
+                    <input type="text" class="form-control" name="s_nom" id="s_nom">
+                </div>
+                <div class="col-md-6">
+                    <label for="p_apell" class="form-label">Primer Apellido:</label>
+                    <input type="text" class="form-control" name="p_apell" id="p_apell" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="s_apell" class="form-label">Segundo Apellido:</label>
+                    <input type="text" class="form-control" name="s_apell" id="s_apell">
+                </div>
+                <div class="col-md-6">
+                    <label for="num_ident" class="form-label">Identificación:</label>
+                    <input type="number" class="form-control" name="num_ident" id="num_ident" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="direc" class="form-label">Dirección:</label>
+                    <input type="text" class="form-control" name="direc" id="direc" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="num_tel1" class="form-label">Teléfono 1:</label>
+                    <input type="number" class="form-control" name="num_tel1" id="num_tel1" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="num_tel2" class="form-label">Teléfono 2:</label>
+                    <input type="number" class="form-control" name="num_tel2" id="num_tel2">
+                </div>
+                <div class="col-md-6">
+                    <label for="corr" class="form-label">Correo:</label>
+                    <input type="email" class="form-control" name="corr" id="corr" required>
+                </div>
+                <div class="col-md-6" id="campo_contra">
+                    <label for="contra" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" name="contra" id="contra">
+                    <div id="passwordHelp" class="password-help"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="id_rol" class="form-label">Rol:</label>
+                    <select class="form-select" name="id_rol" id="id_rol" required>
+                        {% for rol in roles %}
+                        <option value="{{ rol.id_rol }}">{{ rol.nom_rol }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="id_tpdoc_ident" class="form-label">Tipo Documento:</label>
+                    <select class="form-select" name="id_tpdoc_ident" id="id_tpdoc_ident" required>
+                        {% for doc in tipos_documento %}
+                        <option value="{{ doc.id_tpdoc_ident }}">{{ doc.nom_doc_ident }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-primary" style="background:#2196f3; border:none; border-radius:22px; padding:8px 32px; font-size:1.2rem; font-weight:500;">Guardar</button>
+            </div>
+        </form>
+    </div>
+    <div class="table-section mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Tel</th>
+                    <th>Dirección</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in usuarios %}
+                <tr>
+                    <td>{{ user.id_usu_sist }}</td>
+                    <td>{{ user.p_nom }}</td>
+                    <td>{{ user.corr }}</td>
+                    <td>{{ user.num_tel1 }}</td>
+                    <td>{{ user.direc }}</td>
+                    <td>{{ user.id_rol.nom_rol }}</td>
+                    <td style="text-align:center;">
+                        <button class="btn btn-primary btn-sm" style="background:#2196f3; border:none; border-radius:12px; padding:4px 14px; font-size:1rem; font-weight:500; color:#fff; display:inline-block;" onclick="editarUsuario(
+                            '{{ user.id_usu_sist }}',
+                            '{{ user.p_nom }}',
+                            '{{ user.s_nom }}',
+                            '{{ user.p_apell }}',
+                            '{{ user.s_apell }}',
+                            '{{ user.num_ident }}',
+                            '{{ user.direc }}',
+                            '{{ user.num_tel1 }}',
+                            '{{ user.num_tel2 }}',
+                            '{{ user.corr }}',
+                            '{{ user.contra }}',
+                            '{{ user.id_rol.id_rol }}',
+                            '{{ user.id_tpdoc_ident.id_tpdoc_ident }}'
+                        )">Editar</button>
+                        <a href="?eliminar={{ user.id_usu_sist }}" class="btn btn-danger btn-sm" style="background:#e53935; border:none; border-radius:12px; padding:4px 14px; font-size:1rem; font-weight:500; color:#fff; margin-left:8px; display:inline-block;" onclick="return confirm('¿Eliminar este usuario?')">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function editarUsuario(id, nombre, segundoNombre, apellido, segundoApellido, identificacion, direccion, tel1, tel2, correo, contra, rol_id, tipo_doc_id) {
+        document.getElementById('id_usu_sist').value = id;
+        document.getElementById('p_nom').value = nombre;
+        document.getElementById('s_nom').value = segundoNombre;
+        document.getElementById('p_apell').value = apellido;
+        document.getElementById('s_apell').value = segundoApellido;
+        document.getElementById('num_ident').value = identificacion;
+        document.getElementById('direc').value = direccion;
+        document.getElementById('num_tel1').value = tel1;
+        document.getElementById('num_tel2').value = tel2;
+        document.getElementById('corr').value = correo;
+        document.getElementById('id_rol').value = rol_id;
+        document.getElementById('id_tpdoc_ident').value = tipo_doc_id;
+        document.getElementById('campo_contra').hidden = true;
+    }
+
+    function validateForm() {
+        // Validaciones con expresiones regulares para todos los campos
+        var p_nom = document.getElementById('p_nom').value.trim();
+        var s_nom = document.getElementById('s_nom').value.trim();
+        var p_apell = document.getElementById('p_apell').value.trim();
+        var s_apell = document.getElementById('s_apell').value.trim();
+        var num_ident = document.getElementById('num_ident').value.trim();
+        var direc = document.getElementById('direc').value.trim();
+        var num_tel1 = document.getElementById('num_tel1').value.trim();
+        var num_tel2 = document.getElementById('num_tel2').value.trim();
+        var corr = document.getElementById('corr').value.trim();
+        var pwd = document.getElementById('contra').value;
+
+        var regex = {
+            p_nom: /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{1,30}$/,
+            s_nom: /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{0,30}$/,
+            p_apell: /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{1,30}$/,
+            s_apell: /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{0,30}$/,
+            num_ident: /^\d{1,10}$/,
+            direc: /^[A-Za-z0-9#\-\.\, ]{1,100}$/,
+            num_tel1: /^\d{7,10}$/,
+            num_tel2: /^\d{0,10}$/,
+            corr: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+            contra: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=]{8,32}$/
+        };
+
+        if (!regex.p_nom.test(p_nom)) {
+            alert('Primer nombre inválido. Solo letras y máximo 30 caracteres.');
+            return false;
+        }
+        if (s_nom && !regex.s_nom.test(s_nom)) {
+            alert('Segundo nombre inválido. Solo letras y máximo 30 caracteres.');
+            return false;
+        }
+        if (!regex.p_apell.test(p_apell)) {
+            alert('Primer apellido inválido. Solo letras y máximo 30 caracteres.');
+            return false;
+        }
+        if (s_apell && !regex.s_apell.test(s_apell)) {
+            alert('Segundo apellido inválido. Solo letras y máximo 30 caracteres.');
+            return false;
+        }
+        if (!regex.num_ident.test(num_ident)) {
+            alert('Identificación inválida. Solo números, máximo 10 dígitos.');
+            return false;
+        }
+        if (!regex.direc.test(direc)) {
+            alert('Dirección inválida. Máximo 100 caracteres, letras, números y # - . ,');
+            return false;
+        }
+        if (!regex.num_tel1.test(num_tel1)) {
+            alert('Teléfono 1 inválido. Solo números, entre 7 y 10 dígitos.');
+            return false;
+        }
+        if (num_tel2 && !regex.num_tel2.test(num_tel2)) {
+            alert('Teléfono 2 inválido. Solo números, máximo 10 dígitos.');
+            return false;
+        }
+        if (!regex.corr.test(corr)) {
+            alert('Correo electrónico inválido.');
+            return false;
+        }
+        if (!regex.contra.test(pwd)) {
+            alert('La contraseña debe tener mínimo 8 caracteres, incluir letras y números.');
+            return false;
+        }
+        return true;
+    }
+
+    // Alerta dinámica para la contraseña
+    document.addEventListener('DOMContentLoaded', function() {
+        var pwdInput = document.getElementById('contra');
+        var alertDiv = document.getElementById('password-alert');
+        var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=]{8,32}$/;
+        if (pwdInput) {
+            pwdInput.addEventListener('input', function() {
+                var value = pwdInput.value;
+                if (value.length === 0) {
+                    alertDiv.textContent = '';
+                    alertDiv.style.color = '';
+                } else if (regex.test(value)) {
+                    alertDiv.textContent = 'Contraseña segura ✔';
+                    alertDiv.style.color = '#219a52';
+                } else {
+                    alertDiv.textContent = 'La contraseña debe tener mínimo 8 caracteres, incluir letras y números.';
+                    alertDiv.style.color = '#e53935';
+                }
+            });
+        }
+    });
+
+    // Nueva alerta dinámica para la contraseña
+    document.getElementById('contra').addEventListener('input', function() {
+        var pwd = this.value;
+        var help = document.getElementById('passwordHelp');
+        var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=]{8,32}$/;
+        if (pwd.length === 0) {
+            help.textContent = '';
+            help.style.color = '';
+        } else if (regex.test(pwd)) {
+            help.textContent = 'Contraseña segura';
+            help.style.color = '#219653'; // verde
+        } else {
+            help.textContent = 'La contraseña debe tener mínimo 8 caracteres, incluir letras y números.';
+            help.style.color = '#e53935'; // rojo
+        }
+    });
+
+    // Mostrar el campo de contraseña al limpiar el formulario (nuevo usuario)
+    document.getElementById('id_usu_sist').addEventListener('change', function() {
+        if (!this.value) {
+            document.getElementById('campo_contra').hidden = false;
+        }
+    });
+</script>
+</body>
+</html>

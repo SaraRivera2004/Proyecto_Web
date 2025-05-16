@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Indemnidata - Registro{% endblock %}
+
+{% block content %}
+<!--
+    Form security:
+    - The use of {% csrf_token %} protects against CSRF (Cross-Site Request Forgery) attacks.
+    - Variables displayed in the template are automatically escaped by Django's template engine, preventing XSS (Cross-Site Scripting).
+    - In the view (views.py), additional data sanitization (e.g., strip(), escape()) is performed to protect against XSS and ensure data integrity before saving.
+    - Django's ORM protects against SQL injection by parameterizing queries.
+-->
+<div style="text-align: center; margin-bottom: 0;">
+    <img src="{% static 'css/img/indemnidata.png' %}" alt="logo" style="width: 250px; height: auto; margin-bottom: -70px; margin-top: -70px;"> 
+</div>
+<form action="{% url 'registro' %}" method="post" onsubmit="return validateForm()">
+    {% csrf_token %}  {# Protege contra ataques CSRF #}
+    
+    <p><label>Primer Nombre:</label><input type="text" name="p_nom" required maxlength="30"></p> {# Validación de longitud #}
+    <p><label>Segundo Nombre:</label><input type="text" name="s_nom" maxlength="30"></p>
+    <p><label>Primer Apellido:</label><input type="text" name="p_apell" required maxlength="30"></p>
+    <p><label>Segundo Apellido:</label><input type="text" name="s_apell" maxlength="30"></p>
+    <p><label>Identificación:</label><input type="number" name="num_ident" required min="1" max="9999999999"></p> {# Validación de rango #}
+    <p><label>Dirección:</label><input type="text" name="direc" required maxlength="100"></p>
+    <p><label>Teléfono 1:</label><input type="tel" name="num_tel1" required pattern="[0-9]{7,10}" maxlength="10"></p> {# Validación de formato y longitud #}
+    <p><label>Teléfono 2:</label><input type="tel" name="num_tel2" pattern="[0-9]{7,10}" maxlength="10"></p>
+    <p><label>Correo:</label><input type="email" name="corr" required maxlength="100"></p> {# Validación de email y longitud #}
+    <p><label>Contraseña:</label>
+        <div style="position: relative; width: 100%;">
+            <input type="password" name="contra" id="contra" required style="width: 100%; padding-right: 35px;" minlength="8" maxlength="32" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=]{8,32}$"> {# Contraseña segura: mínimo 8 caracteres, letras y números #}
+            <span id="toggleContra" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                <i id="eyeIconContra" class="fa fa-eye"></i>
+            </span>
+        </div>
+        <small style="color:#555;">La contraseña debe tener mínimo 8 caracteres, incluir letras y números.</small>
+    </p>
+    <p><label>Rol:</label>
+        <select name="id_rol" required>
+            {% for rol in roles %}
+                <option value="{{ rol.id_rol }}">{{ rol.nom_rol }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p><label>Tipo Documento:</label>
+        <select name="id_tpdoc_ident" required>
+            {% for doc in tipos_documento %}
+                <option value="{{ doc.id_tpdoc_ident }}">{{ doc.nom_doc_ident }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p><button type="submit">Registrar</button></p>
+</form>
+<script>
+// Mostrar/ocultar contraseña
+const contraInput = document.getElementById('contra');
+const toggleContra = document.getElementById('toggleContra');
+const eyeIconContra = document.getElementById('eyeIconContra');
+toggleContra.addEventListener('click', function() {
+    if (contraInput.type === 'password') {
+        contraInput.type = 'text';
+        eyeIconContra.classList.remove('fa-eye');
+        eyeIconContra.classList.add('fa-eye-slash');
+    } else {
+        contraInput.type = 'password';
+        eyeIconContra.classList.remove('fa-eye-slash');
+        eyeIconContra.classList.add('fa-eye');
+    }
+});
+
+// Validación extra en el frontend antes de enviar
+function validateForm() {
+    // Validación de contraseña segura
+    var pwd = document.getElementById('contra').value;
+    var pwdRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=]{8,32}$/;
+    if (!pwdRegex.test(pwd)) {
+        alert('La contraseña debe tener mínimo 8 caracteres, incluir letras y números.');
+        return false;
+    }
+    // Validación de email (adicional a HTML5)
+    var email = document.querySelector('input[name="corr"]').value;
+    var emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Por favor ingresa un correo válido.');
+        return false;
+    }
+    // Validación de teléfono
+    var tel1 = document.querySelector('input[name="num_tel1"]').value;
+    if (tel1.length < 7 || tel1.length > 10) {
+        alert('El teléfono debe tener entre 7 y 10 dígitos.');
+        return false;
+    }
+    return true;
+}
+</script>
+
+{% endblock %}
+
